@@ -79,19 +79,12 @@ void AP_RangeFinder_MAVLink::update(void)
     if (AP_HAL::millis() - state.last_reading_ms > AP_RANGEFINDER_MAVLINK_TIMEOUT_MS) {
         set_status(RangeFinder::Status::NoData);
         state.distance_m = 0.0f;
+        state.signal_quality_pct = RangeFinder::SIGNAL_QUALITY_NODATA;
     } else {
         state.distance_m = distance_cm * 0.01f;
+        state.signal_quality_pct = signal_quality;
         update_status();
     }
-}
-
-bool AP_RangeFinder_MAVLink::get_signal_quality_pct(int8_t &quality_pct) const
-{
-    if (status() != RangeFinder::Status::Good) {
-        return false;
-    }
-    quality_pct = signal_quality;
-    return true;
 }
 
 #endif
