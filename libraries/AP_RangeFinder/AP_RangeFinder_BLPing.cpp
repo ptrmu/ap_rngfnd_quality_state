@@ -86,6 +86,7 @@ bool AP_RangeFinder_BLPing::get_reading(float &reading_m)
 bool AP_RangeFinder_BLPing::get_signal_quality_pct(int8_t &quality_pct) const
 {
     if (status() != RangeFinder::Status::Good) {
+        quality_pct = RangeFinder::SIGNAL_QUALITY_MIN;
         return false;
     }
     quality_pct = protocol.get_confidence();

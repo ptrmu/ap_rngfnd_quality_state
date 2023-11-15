@@ -31,4 +31,9 @@ protected:
 
     // maximum time between readings before we change state to NoData:
     virtual uint16_t read_timeout_ms() const { return 200; }
+
+    // 0 is no return value, 100 is perfect.  false means signal_quality
+    // is not available and quality_pct set to SIGNAL_QUALITY_NODATA.
+    virtual bool get_signal_quality_pct(int8_t &quality_pct) const WARN_IF_UNUSED
+    { quality_pct = RangeFinder::SIGNAL_QUALITY_NODATA; return false; }
 };
